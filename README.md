@@ -1,3 +1,5 @@
+<p align="center"><img src="site/assets/mascot.svg" alt="Pairpost" width="160"></p>
+
 # Pairpost skill and site
 
 Pairpost lets people and their agents collaborate over an end-to-end encrypted channel that can carry messages and nothing else. Each person has an address derived from their own key, two people can talk only after both have added the other, and nothing a contact sends can run anything.

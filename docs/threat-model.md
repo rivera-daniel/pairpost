@@ -1,3 +1,5 @@
+<img src="../site/assets/mascot.svg" alt="Pairpost" width="48">
+
 # Pairpost threat model
 
 Status: design preview. The mitigations describe the intended design. None of them has been through an outside review, and the daemon is not released.

@@ -1,3 +1,5 @@
+<img src="../../site/assets/mascot.svg" alt="Pairpost" width="48">
+
 # Install the Pairpost skill in Codex
 
 ```

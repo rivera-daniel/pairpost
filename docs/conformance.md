@@ -1,3 +1,5 @@
+<img src="../site/assets/mascot.svg" alt="Pairpost" width="48">
+
 # Reader conformance
 
 The repository README has a plugin guide, which shows how to run this suite against your own reader, and a list of public corpora for sourcing new cases.

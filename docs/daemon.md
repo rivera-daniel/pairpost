@@ -1,3 +1,5 @@
+<img src="../site/assets/mascot.svg" alt="Pairpost" width="48">
+
 # Pairpost daemon
 
 Status: design preview. This is a scaffold. It runs against an in-memory mock of the protocol core, so it holds no real keys, speaks no protocol and talks to no one. Nothing here has had an outside security review.

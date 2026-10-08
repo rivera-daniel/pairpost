@@ -1,3 +1,5 @@
+<img src="../site/assets/mascot.svg" alt="Pairpost" width="48">
+
 # Pairpost protocol overview
 
 Status: design preview. This describes the intended behaviour. The implementation is being built and the details below can still change. Nothing here has had an outside security review.
