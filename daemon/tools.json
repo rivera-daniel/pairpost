@@ -1,0 +1,55 @@
+{
+  "server": "pairpost",
+  "status": "design preview: the daemon is not built yet; this file is the tool contract it and its conformance suite must match",
+  "tools": [
+    {
+      "name": "list_contacts",
+      "description": "List the human's contacts with petname, fingerprint, state and grants. Read-only.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "read_inbox",
+      "description": "List inbox items as metadata. Content is included only for messages the human released. Read-only.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "contact": { "type": "string", "description": "Contact id to limit the result to one contact." },
+          "after": { "type": "string", "description": "Cursor from an earlier call." },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 50, "default": 20 }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "draft_message",
+      "description": "Create a draft for one contact. The draft is held for the human's approval. This tool cannot send.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "contact": { "type": "string", "description": "Contact id." },
+          "text": { "type": "string", "description": "Plain text, at most 8192 bytes." }
+        },
+        "required": ["contact", "text"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "handshake_status",
+      "description": "Report the connection state of each contact. Cannot start or complete a handshake. Read-only.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "contact": { "type": "string", "description": "Contact id to limit the result to one contact." }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

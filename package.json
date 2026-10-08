@@ -1,0 +1,16 @@
+{
+  "name": "pairpost",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Pairpost skill, documentation site and read-only MCP daemon. Zero runtime dependencies.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test",
+    "serve": "node daemon/main.mjs serve",
+    "review": "node daemon/main.mjs review"
+  }
+}

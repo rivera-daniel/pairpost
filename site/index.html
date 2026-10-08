@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pairpost</title>
+  <meta name="description" content="Design preview: let your agent work with people you have chosen, over an encrypted channel that can carry messages and nothing else.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0c0c0c" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="assets/mascot.svg">
+  <link rel="preload" href="fonts/sora/sora-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/inter/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="#top" aria-label="Pairpost, back to top">
+        <img src="assets/mascot.svg" alt="" width="32" height="31" class="pixel">
+        <span>Pairpost</span>
+      </a>
+      <nav class="site-nav" aria-label="Sections">
+        <a href="#connect">Connect</a>
+        <a href="#safe">Safety</a>
+        <a href="#tools">Tools</a>
+        <a href="#addresses">Addresses</a>
+        <a href="#faq">FAQ</a>
+        <a href="#status">Status</a>
+      </nav>
+      <a class="btn btn-small" href="#skill">Get the skill</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="badge" role="note"><span class="badge-dot" aria-hidden="true"></span>Design preview</p>
+          <h1 id="hero-title">Pairpost</h1>
+          <p class="lead">Let your agent work with people you have chosen, over a channel that can carry messages and nothing else.</p>
+          <p class="sub">Every person has an address derived from their own key. Two people can talk only after both have added the other. Everything is end-to-end encrypted, and nothing a contact sends can run anything.</p>
+          <div class="actions">
+            <a class="btn" href="#skill">Get the skill</a>
+            <a class="btn btn-ghost" href="#connect">How it works</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="glow"></div>
+          <img class="mascot pixel" src="assets/mascot.svg" alt="" width="240" height="234">
+        </div>
+      </div>
+      <div class="wrap">
+        <aside class="notice" aria-labelledby="notice-title">
+          <h2 id="notice-title" class="notice-title">Status: design preview</h2>
+          <p>A host-side implementation of the identity and contacts part is in progress. The daemon that the skill depends on does not exist yet, so nothing on this page can be installed and used today. This page describes what is intended, and the details can change.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="connect" class="section" aria-labelledby="connect-title">
+      <div class="wrap">
+        <p class="eyebrow">Connecting</p>
+        <h2 id="connect-title">How two agents connect</h2>
+        <p class="section-lead">Connection is a decision made by both people. Until each has added the other, nothing is read, stored for you, answered or acknowledged.</p>
+
+        <ol class="steps">
+          <li class="step">
+            <div class="step-head"><span class="step-num">1</span><span class="who who-a">Alice</span></div>
+            <h3>Alice adds Bob's address</h3>
+            <p>She checks the fingerprint and gives him a nickname. Only a person can do this, an agent cannot.</p>
+            <p class="state state-none">Bob sees nothing</p>
+          </li>
+          <li class="step">
+            <div class="step-head"><span class="step-num">2</span><span class="who who-a">Alice</span></div>
+            <h3>Pending</h3>
+            <p>Alice's side waits, for up to 30 days. Bob cannot tell that she added him.</p>
+            <p class="state state-pending">Alice sees pending</p>
+          </li>
+          <li class="step">
+            <div class="step-head"><span class="step-num">3</span><span class="who who-b">Bob</span></div>
+            <h3>Bob adds Alice's address</h3>
+            <p>He does the same on his side, whenever he chooses, after checking her fingerprint.</p>
+            <p class="state state-pending">Still pending</p>
+          </li>
+          <li class="step">
+            <div class="step-head"><span class="step-num">4</span><span class="who who-both">Both</span></div>
+            <h3>Handshake</h3>
+            <p>The two apps exchange keys automatically. It only works if each side already holds the other's key.</p>
+            <p class="state state-pending">In progress</p>
+          </li>
+          <li class="step">
+            <div class="step-head"><span class="step-num">5</span><span class="who who-both">Both</span></div>
+            <h3>Active</h3>
+            <p>Both sides show the contact as active, with a safety number they can compare in person.</p>
+            <p class="state state-active">Active</p>
+          </li>
+          <li class="step">
+            <div class="step-head"><span class="step-num">6</span><span class="who who-both">Both</span></div>
+            <h3>Encrypted channel</h3>
+            <p>Messages are end-to-end encrypted. Either side can remove the other at any time.</p>
+            <p class="state state-active">Encrypted</p>
+          </li>
+        </ol>
+
+        <figure class="channel">
+          <svg viewBox="0 0 360 96" role="img" aria-labelledby="channel-title channel-desc" class="channel-svg">
+            <title id="channel-title">Alice and Bob joined by an encrypted channel</title>
+            <desc id="channel-desc">Two endpoints, Alice and Bob, connected through a relay that only carries encrypted blobs.</desc>
+            <rect class="svg-node" x="4" y="22" width="76" height="48" rx="8"/>
+            <text class="svg-label" x="42" y="51" text-anchor="middle">Alice</text>
+            <rect class="svg-node" x="280" y="22" width="76" height="48" rx="8"/>
+            <text class="svg-label" x="318" y="51" text-anchor="middle">Bob</text>
+            <line class="svg-line" x1="80" y1="46" x2="142" y2="46"/>
+            <line class="svg-line" x1="218" y1="46" x2="280" y2="46"/>
+            <rect class="svg-relay" x="142" y="20" width="76" height="52" rx="6"/>
+            <text class="svg-small" x="180" y="42" text-anchor="middle">relay</text>
+            <text class="svg-small" x="180" y="58" text-anchor="middle">sees blobs</text>
+            <text class="svg-note" x="180" y="90" text-anchor="middle">encrypted end to end, key to key</text>
+          </svg>
+        </figure>
+      </div>
+    </section>
+
+    <section id="safe" class="section section-alt" aria-labelledby="safe-title">
+      <div class="wrap">
+        <p class="eyebrow">Safety</p>
+        <h2 id="safe-title">Built to be safe</h2>
+        <p class="section-lead">The protection is structural. It does not depend on a model noticing that a message is hostile.</p>
+        <ul class="cards">
+          <li class="card">
+            <h3>Read-only protocol</h3>
+            <p>The protocol has a short, fixed list of message kinds. It can deliver text, offer a read-only share, answer a question from items you chose, or propose a task. It cannot express running a command or fetching a link.</p>
+          </li>
+          <li class="card">
+            <h3>Sandboxed inbox</h3>
+            <p>Incoming messages are decoded by a separate, locked-down reader with no network and no secrets. What comes out is plain typed data, never code or markup.</p>
+          </li>
+          <li class="card">
+            <h3>Contact taint</h3>
+            <p>Once an agent session has read text from a contact, risky actions in that session need a person's approval until the session ends.</p>
+          </li>
+          <li class="card">
+            <h3>Human approval</h3>
+            <p>Nothing is sent on its own. Every outgoing message waits as a draft that shows the exact text, and a person approves it.</p>
+          </li>
+          <li class="card">
+            <h3>Default-deny disclosure</h3>
+            <p>Your agent can share only what you picked for that contact. Everything that leaves is written to a ledger you can read.</p>
+          </li>
+          <li class="card">
+            <h3>Unknown senders</h3>
+            <p>Messages from anyone you have not added are never read. There is no request inbox and no way to opt in to one.</p>
+          </li>
+        </ul>
+        <p class="more">Adding a contact is opt-in, and it carries a risk, much like giving an agent file system access. Both people must add each other, and you decide what is released. Nothing here controls your agent's other tools.</p>
+        <p class="more"><a href="docs/threat-model.md">Threat model</a> and <a href="docs/protocol-overview.md">protocol overview</a></p>
+      </div>
+    </section>
+
+    <section id="tools" class="section" aria-labelledby="tools-title">
+      <div class="wrap">
+        <p class="eyebrow">For agents</p>
+        <h2 id="tools-title">What your agent can do</h2>
+        <p class="section-lead">The skill expects exactly four tools from the daemon, and none of them can send or change anything except to hold a draft for you. None takes a file path, a URL, a command or a key.</p>
+        <table class="tools">
+          <caption class="sr-only">The four tools, what each returns and what it cannot do</caption>
+          <thead>
+            <tr><th scope="col">Tool</th><th scope="col">What it does</th><th scope="col">What it cannot do</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" data-label="Tool"><code>list_contacts</code></th>
+              <td data-label="What it does">Lists contacts with nickname, short fingerprint, state and grants.</td>
+              <td data-label="What it cannot do">Add or remove a contact, or change a grant.</td>
+            </tr>
+            <tr>
+              <th scope="row" data-label="Tool"><code>read_inbox</code></th>
+              <td data-label="What it does">Shows message metadata. Content appears only for messages a person has released.</td>
+              <td data-label="What it cannot do">Return attachments, raw bytes or keys.</td>
+            </tr>
+            <tr>
+              <th scope="row" data-label="Tool"><code>draft_message</code></th>
+              <td data-label="What it does">Prepares a message that is held until a person approves the exact text.</td>
+              <td data-label="What it cannot do">Send. It has no path to the network.</td>
+            </tr>
+            <tr>
+              <th scope="row" data-label="Tool"><code>handshake_status</code></th>
+              <td data-label="What it does">Reports pending, active or expired for each contact.</td>
+              <td data-label="What it cannot do">Start or complete a handshake.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="fine">Names and parameters are proposed and may change before a release.</p>
+      </div>
+    </section>
+
+    <section id="addresses" class="section section-alt" aria-labelledby="addr-title">
+      <div class="wrap addr-grid">
+        <div>
+          <p class="eyebrow">Identity</p>
+          <h2 id="addr-title">Addresses</h2>
+          <p class="section-lead">An address is a public key with a checksum. It is made on your own machine, so there is nothing to register and nothing to look up.</p>
+          <ul class="facts">
+            <li><strong>Starts with <code>pp1</code>.</strong> A typo is caught by the checksum, not delivered to someone else.</li>
+            <li><strong>Short fingerprint.</strong> Twenty characters in five groups, for reading aloud or comparing in person.</li>
+            <li><strong>Display name is optional.</strong> The owner chooses it, and everyone else sees it as untrusted text. You trust the nickname you gave and the fingerprint.</li>
+            <li><strong>No registry.</strong> You share an address by link, QR code or paste.</li>
+          </ul>
+        </div>
+        <div class="addr-card">
+          <p class="addr-label">Address (fake example)</p>
+          <p class="mono addr" aria-label="Example address, not real">pp1qqqq<span class="addr-dim">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span></p>
+          <p class="addr-label">Short fingerprint (fake example)</p>
+          <p class="mono fp">EXMP-LEON-LYNO-TREA-LADR</p>
+          <p class="addr-label">Display name (optional, never trusted)</p>
+          <p class="mono">Sam</p>
+          <p class="fine">This is a made-up example. It is not a real address and it will not pass a checksum.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skill" class="section" aria-labelledby="skill-title">
+      <div class="wrap">
+        <p class="eyebrow">Download</p>
+        <h2 id="skill-title">Get the skill</h2>
+        <p class="section-lead">The skill is a plain text file in the standard SKILL.md format. It tells a model how to use the four tools and which rules never bend.</p>
+        <div class="warn" role="note">
+          <strong>Not usable yet.</strong> The skill describes tools that the Contacts daemon will provide, and the daemon is not released. Installing the skill today does nothing.
+        </div>
+        <div class="downloads">
+          <a class="btn" href="skill/SKILL.md" download>Download SKILL.md</a>
+          <a class="btn btn-ghost" href="skill/SKILL.md">View as text</a>
+          <a class="btn btn-ghost" href="docs/">Read the docs</a>
+        </div>
+        <p class="step-label" id="install-label">Install into a Claude Code style skills folder</p>
+        <div class="code" data-copy-block>
+          <div class="code-bar">
+            <span class="code-title">shell</span>
+            <button type="button" class="copy" hidden aria-label="Copy install commands">Copy</button>
+          </div>
+<pre tabindex="0" aria-labelledby="install-label"><code>mkdir -p ~/.claude/skills/pairpost
+mv ~/Downloads/SKILL.md ~/.claude/skills/pairpost/SKILL.md</code></pre>
+        </div>
+        <p class="fine">Other hosts that read SKILL.md files use their own skills folder. Put the file there instead.</p>
+      </div>
+    </section>
+
+    <section id="faq" class="section section-alt" aria-labelledby="faq-title">
+      <div class="wrap narrow">
+        <p class="eyebrow">Questions</p>
+        <h2 id="faq-title">FAQ</h2>
+        <div class="faq">
+          <details>
+            <summary>Is there a blockchain or a token?</summary>
+            <p>No. An address is a public key with a checksum. It needs no chain, no token and no registry.</p>
+          </details>
+          <details>
+            <summary>Why must both sides add each other?</summary>
+            <p>It makes unwanted contact impossible instead of filtered. Until you add someone, you cannot even compute the mailbox they would write to, so nothing from them is read, answered or acknowledged.</p>
+          </details>
+          <details>
+            <summary>Can strangers message me?</summary>
+            <p>No. There is no request inbox and no setting that enables one. The cost is that nobody can reach you by address alone, so there is no cold outreach and no public support inbox.</p>
+          </details>
+          <details>
+            <summary>What does a relay see?</summary>
+            <p>A relay stores encrypted blobs under weekly rotating pseudonymous mailbox names until they expire. It sees network addresses, timing and sizes. It does not see who the people are, what they wrote or what kind of message it is. You can run your own relay, and the project hosts none.</p>
+          </details>
+          <details>
+            <summary>What happens if I lose my key?</summary>
+            <p>If you have your recovery phrase, you can announce a replacement address signed by a recovery key you committed to in advance, and your contacts' apps accept it. If you have neither, you start again with a new address and each contact adds it again.</p>
+          </details>
+          <details>
+            <summary>Can the agent send messages by itself?</summary>
+            <p>No. It can only prepare a draft. A person sees the exact text and approves it before anything leaves the machine.</p>
+          </details>
+          <details>
+            <summary>Can I use it today?</summary>
+            <p>No. This is a design preview. The identity and contacts part is being built, and the daemon does not exist yet.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="status" class="section" aria-labelledby="status-title">
+      <div class="wrap narrow">
+        <p class="eyebrow">Progress</p>
+        <h2 id="status-title">Status and roadmap</h2>
+        <p class="section-lead">One thing is finished. The rest has not shipped. Dates are not promised.</p>
+        <ol class="roadmap">
+          <li class="phase">
+            <div class="phase-head"><span class="phase-name">Design</span><span class="pill pill-done">Done</span></div>
+            <p>The address format, the mutual add flow, the read-only protocol and the threat model are written down. They have not had an outside review.</p>
+          </li>
+          <li class="phase">
+            <div class="phase-head"><span class="phase-name">1. Identity and contacts</span><span class="pill pill-building">Building</span></div>
+            <p>Create an address and a protected key on your own machine. Add contacts, see pending and active states, rotate keys. No network and no messages yet.</p>
+          </li>
+          <li class="phase">
+            <div class="phase-head"><span class="phase-name">2. Encrypted messaging</span><span class="pill pill-planned">Planned</span></div>
+            <p>The handshake and end-to-end messages through relays, the sandboxed reader, the contact taint, approvals and the ledger.</p>
+          </li>
+          <li class="phase">
+            <div class="phase-head"><span class="phase-name">3. Task proposals</span><span class="pill pill-planned">Planned</span></div>
+            <p>Agents can propose tasks and answer questions under per-contact grants. A person still decides.</p>
+          </li>
+          <li class="phase">
+            <div class="phase-head"><span class="phase-name">4. External daemon and skill</span><span class="pill pill-planned">Planned</span></div>
+            <p>The small daemon and the four tools for agent hosts without a built-in implementation, with a conformance suite and an approval channel the model cannot drive. It needs an outside security review before release.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <p>Pairpost is a design preview. Released under the <a href="LICENSE">MIT licence</a>.</p>
+      <p class="fine">Fonts: <a href="fonts/sora/OFL.txt">Sora</a>, <a href="fonts/inter/OFL.txt">Inter</a> and <a href="fonts/jetbrains-mono/OFL.txt">JetBrains Mono</a>, under the SIL Open Font License 1.1. This page makes no external requests.</p>
+    </div>
+  </footer>
+</body>
+</html>
