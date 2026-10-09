@@ -157,8 +157,8 @@ function pageChecks() {
   };
 }
 
-async function runViewport(combo, scheme, { screenshot, extended }) {
-  const label = `${combo.name}/${scheme}`;
+async function runViewport(combo, scheme, { screenshot, extended, pagePath = '/' }) {
+  const label = pagePath === '/' ? `${combo.name}/${scheme}` : `${pagePath} ${combo.name}/${scheme}`;
   const context = await browser.newContext({
     viewport: { width: combo.width, height: combo.height },
     colorScheme: scheme,
@@ -186,11 +186,11 @@ async function runViewport(combo, scheme, { screenshot, extended }) {
     }).observe({ type: 'layout-shift', buffered: true });
   });
 
-  await page.goto(base + '/', { waitUntil: 'networkidle' });
+  await page.goto(base + pagePath, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(400);
 
-  if (screenshot) await page.screenshot({ path: path.join(shotDir, `${combo.name}-${scheme}.png`), fullPage: true });
+  if (screenshot) await page.screenshot({ path: path.join(shotDir, `${pagePath === '/' ? '' : `${pagePath.replace(/\W+/g, '')}-`}${combo.name}-${scheme}.png`), fullPage: true });
 
   // Open every FAQ item so the contrast check covers their text, then run the checks.
   await page.evaluate(() => document.querySelectorAll('details').forEach((d) => { d.open = true; }));
@@ -205,7 +205,7 @@ async function runViewport(combo, scheme, { screenshot, extended }) {
   if (result.contrast.length) fail(label, `contrast: ${result.contrast.slice(0, 10).join(' | ')}`);
   if (result.targets.length) fail(label, `small tap targets: ${result.targets.join(' | ')}`);
   if (cls > 0.02) fail(label, `layout shift ${cls.toFixed(4)}`);
-  if (result.mascotRendering !== 'pixelated') fail(label, `mascot image-rendering is ${result.mascotRendering}`);
+  if (pagePath === '/' && result.mascotRendering !== 'pixelated') fail(label, `mascot image-rendering is ${result.mascotRendering}`);
   if (result.h1 !== 1) fail(label, `expected one h1, got ${result.h1}`);
   info.push(`${label}: scrollWidth ${result.scrollWidth}/${result.innerWidth}, CLS ${cls.toFixed(4)}, fonts ${result.fonts.join(' ')}, landmarks ${result.landmarks.join(' ')}`);
 
@@ -293,6 +293,12 @@ try {
   for (const combo of combos) {
     for (const scheme of ['dark', 'light']) {
       await runViewport(combo, scheme, { screenshot: true, extended: scheme === 'dark' });
+    }
+  }
+  // The mailbox preview page gets the same checks, without the home page's link and copy-button extras.
+  for (const combo of combos) {
+    for (const scheme of ['dark', 'light']) {
+      await runViewport(combo, scheme, { screenshot: true, extended: false, pagePath: '/mailbox.html' });
     }
   }
   // Extra widths for the horizontal scroll check only.

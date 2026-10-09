@@ -9,7 +9,7 @@ node --test
 node scripts/check-skill.mjs
 scripts/check-public.sh
 
-for path in / /style.css /app.js /skill/SKILL.md /docs/ /docs/protocol-overview.md /docs/threat-model.md /docs/install/claude-code.md /docs/install/codex.md /docs/daemon.md /LICENSE /assets/mascot.svg; do
+for path in / /style.css /app.js /mailbox.html /mailbox.css /mailbox.js /skill/SKILL.md /docs/ /docs/protocol-overview.md /docs/threat-model.md /docs/install/claude-code.md /docs/install/codex.md /docs/daemon.md /LICENSE /assets/mascot.svg; do
   code="$(curl -s -o /dev/null -w '%{http_code}' "$base$path" || true)"
   printf '%s %s\n' "$code" "$path"
   [[ "$code" == "200" ]] || { echo "check: $path returned $code" >&2; exit 1; }
