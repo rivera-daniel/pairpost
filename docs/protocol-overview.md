@@ -33,9 +33,9 @@ Until both additions exist, nothing from the other side is read, answered or ack
 
 ## The handshake, in plain words
 
-The handshake is a key exchange in which both parties prove they hold the private key that belongs to the address the other side added, and agree on fresh session keys. Each party must already know the other's static public key before it starts, which is why a stranger cannot begin one. After it completes, messages use a ratcheting scheme: keys change with every message, so recorded traffic cannot be decrypted later if a key leaks, and the session recovers after a compromise once both sides have exchanged messages.
+The handshake is a key exchange in which both parties prove they hold the private key that belongs to the address the other side added, and agree on fresh session keys. Each party must already know the other's static public key before it starts, which is why a stranger cannot begin one. The design then runs messages through a ratcheting scheme, so that keys change with every message, recorded traffic cannot be decrypted later if a key leaks, and the session recovers after a compromise once both sides have exchanged messages. **The ratchet is not implemented yet.** Today the handshake output is a pair of session keys used with a message counter, so a leaked session key would read that session's traffic.
 
-The design uses Noise KK for the handshake and a double ratchet for the session, built on Ed25519, X25519, HKDF-SHA256, ChaCha20-Poly1305 and SHA-256 from the standard library of the host runtime.
+The design uses Noise KK for the handshake (implemented) and a double ratchet for the session (planned), built on Ed25519, X25519, HKDF-SHA256, ChaCha20-Poly1305 and SHA-256 from the standard library of the host runtime.
 
 ## Transport
 
